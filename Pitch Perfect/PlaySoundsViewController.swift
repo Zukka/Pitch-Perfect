@@ -38,6 +38,10 @@ class PlaySoundsViewController: UIViewController {
         configureUI(.notPlaying)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+//      Add this to prevent a play sound active and user start new record
+        stopAudio()
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()    }
     
@@ -52,7 +56,8 @@ class PlaySoundsViewController: UIViewController {
         case .chipmunk:
             playSound(pitch: 1000)
         case .vader:
-            playSound(pitch: -1000)
+//            change pitch from -1000 to -1200 for a better Vader voice
+            playSound(pitch: -1200)
         case .echo:
             playSound(echo: true)
         case .reverb:
