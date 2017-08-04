@@ -58,19 +58,13 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     }
     
     func preparaUI (stato: Bool) {
-        if (stato) {
-            self.recordingLabel.text = "Recording in Progress"
-            self.stopRecordingButton.isEnabled = true
-            self.recordButton.isEnabled = false
-
-        } else {
-            self.stopRecordingButton.isEnabled = false
-            self.recordButton.isEnabled = true
-            self.recordingLabel.text = "Tap to Record"
-        }
+        recordingLabel.text = stato ? "Recording in Progress" : "Tap to Record"
+        stopRecordingButton.isEnabled = stato
+        recordButton.isEnabled = !stato
     }
     
-    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {        if flag {
+    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
+        if flag {
             performSegue(withIdentifier: "stopRecording", sender: audioRecorder.url)
         } else {
             print("recording not was successful")
@@ -81,10 +75,6 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         if segue.identifier == "stopRecording" {
             //            My version of segue
             (segue.destination as! PlaySoundsViewController).recordedAudioURL = sender as! URL
-
-//            let playSoundsVC = segue.destination as! PlaySoundsViewController
-//            let recordedAudioURL = sender as! URL
-//            playSoundsVC.recordedAudioURL = recordedAudioURL
         }
     }
 }
