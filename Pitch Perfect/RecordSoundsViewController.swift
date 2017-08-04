@@ -12,6 +12,7 @@ import AVFoundation
 class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     
  // MARK: Properties
+    var alertFailRecord :UIAlertController? // for alert view
     
     var audioRecorder: AVAudioRecorder!
     
@@ -26,13 +27,8 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("viewWillAppear called")
     }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
+    
     @IBAction func recordAudio(_ sender: AnyObject) {
         preparaUI(stato: true)
         let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory,.userDomainMask, true)[0] as String
@@ -67,7 +63,18 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         if flag {
             performSegue(withIdentifier: "stopRecording", sender: audioRecorder.url)
         } else {
-            print("recording not was successful")
+            
+            alertFailRecord = UIAlertController(title: "Pitch Perfect - Alert",
+                                           message: "Recording not was successful",
+                                           preferredStyle: .alert)
+            // Add action for close alert view
+            let action = UIAlertAction(title: "Close", style: UIAlertActionStyle.default,
+                                       handler: {(paramAction :UIAlertAction!) in
+                                        
+            })
+            alertFailRecord!.addAction(action)
+
+            present(alertFailRecord!, animated: true, completion: nil)
         }
     }
     
