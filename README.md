@@ -1,5 +1,24 @@
 # Pitch-Perfect
 
+App for record audio and play it with some effect.
+
+### RecordSoundsViewController
+
+Clear layout with only two buttons, for start record and stop.
+When user tap on stop button app open the second ViewController (PlaySoundsViewController)
+
+### PlaySoundsViewController
+This layout display seven button: six for sound effects and one for stop player.
+Effects are: 
+- play slow
+- play fast
+- custom pitch (1000) like a chipmunk voice
+- custom pitch (-1200) like a vader voice
+- echo
+- reverb
+
+When user tap on back button on NavigationBar, app stop the player for prevent to record played audio on new record.
+
 ## Requirements
 
 - Xcode Xcode 8.3.3
