@@ -21,8 +21,8 @@ When user tap on back button on NavigationBar, app stop the player for prevent t
 
 ## Requirements
 
-- Xcode Xcode 8.3.3
-- Swift 3.0
+- Xcode Xcode 9.0
+- Swift 4.0
 
 ## License
 
