@@ -36,7 +36,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         let pathArray = [dirPath, recordingName]
         let filePath = URL(string: pathArray.joined(separator: "/"))
         let session = AVAudioSession.sharedInstance()
-        try! session.setCategory(AVAudioSessionCategoryPlayAndRecord, with:AVAudioSessionCategoryOptions.defaultToSpeaker)
+        try! session.setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.playAndRecord)), options: AVAudioSession.CategoryOptions.defaultToSpeaker)
         
         try! audioRecorder = AVAudioRecorder(url: filePath!, settings: [:])
         audioRecorder.delegate = self
@@ -68,7 +68,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
                                            message: "Recording not was successful",
                                            preferredStyle: .alert)
             // Add action for close alert view
-            let action = UIAlertAction(title: "Close", style: UIAlertActionStyle.default,
+            let action = UIAlertAction(title: "Close", style: UIAlertAction.Style.default,
                                        handler: {(paramAction :UIAlertAction!) in
                                         
             })
@@ -81,8 +81,13 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "stopRecording" {
             //            My version of segue
-            (segue.destination as! PlaySoundsViewController).recordedAudioURL = sender as! URL
+            (segue.destination as! PlaySoundsViewController).recordedAudioURL = sender as? URL
         }
     }
 }
 
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
+	return input.rawValue
+}
